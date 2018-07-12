@@ -1,0 +1,132 @@
+<templateSet group="user">
+  <template name="comp" value="using Entitas;&#10;&#10;[Game]&#10;public sealed class $component$ : IComponent&#10;{&#10;  public string value;&#10;}&#10;" description="Component" toReformat="true" toShortenFQNames="true">
+    <variable name="component" expression="fileNameWithoutExtension()" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CUCUMBER_FEATURE_FILE" value="false" />
+      <option name="HTML" value="false" />
+      <option name="Handlebars" value="false" />
+      <option name="JSON" value="false" />
+      <option name="OTHER" value="true" />
+      <option name="XML" value="false" />
+    </context>
+  </template>
+  <template name="react" value="using System.Collections.Generic;&#10;using Entitas;&#10;using Entitas.Unity;&#10;&#10;[Game]&#10;public sealed class $system$ : ReactiveSystem&lt;GameEntity&gt;&#10;{&#10;  readonly GameContext _context;&#10;&#10;  public $system$(Contexts contexts): base(contexts.game)&#10;  {&#10;    _context = contexts.game;&#10;  }&#10;&#10;  protected override ICollector&lt;GameEntity&gt; GetTrigger(IContext&lt;GameEntity&gt; context)&#10;  {&#10;    return context.CreateCollector($matcher$);&#10;  }&#10;&#10;  protected override bool Filter(GameEntity entity)&#10;  {&#10;    return $filter$;&#10;  }&#10;&#10;  protected override void Execute(List&lt;GameEntity&gt; entities)&#10;  {&#10;    foreach (var entity in entities)&#10;    {&#10;      $logic$&#10;    }&#10;  }&#10;&#10;}&#10;" description="ReactiveSystem" toReformat="true" toShortenFQNames="true">
+    <variable name="system" expression="fileNameWithoutExtension()" defaultValue="" alwaysStopAt="true" />
+    <variable name="matcher" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="filter" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="logic" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CUCUMBER_FEATURE_FILE" value="false" />
+      <option name="HTML" value="false" />
+      <option name="Handlebars" value="false" />
+      <option name="JSON" value="false" />
+      <option name="OTHER" value="true" />
+      <option name="XML" value="false" />
+    </context>
+  </template>
+  <template name="feat" value="using Entitas;&#10;&#10;public sealed class $feature$ : Feature&#10;{&#10;    public $feature$(Contexts contexts) : base(&quot;$name$ Systems&quot;)&#10;    {&#10;        Add(new $system$(contexts));&#10;    }&#10;}" description="Feature" toReformat="false" toShortenFQNames="true">
+    <variable name="feature" expression="fileNameWithoutExtension()" defaultValue="" alwaysStopAt="true" />
+    <variable name="name" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="system" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CUCUMBER_FEATURE_FILE" value="false" />
+      <option name="HTML" value="false" />
+      <option name="Handlebars" value="false" />
+      <option name="JSON" value="false" />
+      <option name="OTHER" value="true" />
+      <option name="XML" value="false" />
+    </context>
+  </template>
+  <template name="exec" value="using Entitas;&#10;&#10;public sealed class $system$ : IExecuteSystem&#10;{&#10;  private readonly IGroup&lt;GameEntity&gt; $group$;&#10;  &#10;  public $system$(Contexts contexts)&#10;  {&#10;    $group$ = contexts.game.GetGroup($matcher$);&#10;  }&#10;&#10;  public void Execute()&#10;  {&#10;    foreach (var entity in $group$.GetEntities())&#10;    {&#10;      $logic$&#10;    }&#10;  }&#10;}" description="IExecuteSystem" toReformat="true" toShortenFQNames="true">
+    <variable name="system" expression="fileNameWithoutExtension()" defaultValue="" alwaysStopAt="true" />
+    <variable name="group" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="matcher" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="logic" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CUCUMBER_FEATURE_FILE" value="false" />
+      <option name="HTML" value="false" />
+      <option name="Handlebars" value="false" />
+      <option name="JSON" value="false" />
+      <option name="OTHER" value="true" />
+      <option name="XML" value="false" />
+    </context>
+  </template>
+  <template name="clean" value="using Entitas;&#10;&#10;public sealed class $system$ : ICleanupSystem&#10;{&#10;  private readonly IGroup&lt;GameEntity&gt; $group$;&#10;  &#10;  public $system$(Contexts contexts)&#10;  {&#10;    $group$ = contexts.game.GetGroup($matcher$);&#10;  }&#10;&#10;  public void Cleanup()&#10;  {&#10;    foreach (var entity in $group$.GetEntities())&#10;    {&#10;      $logic$&#10;    }&#10;  }&#10;}" description="ICleanupSystem" toReformat="true" toShortenFQNames="true">
+    <variable name="system" expression="fileNameWithoutExtension()" defaultValue="" alwaysStopAt="true" />
+    <variable name="group" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="matcher" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="logic" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CUCUMBER_FEATURE_FILE" value="false" />
+      <option name="HTML" value="false" />
+      <option name="Handlebars" value="false" />
+      <option name="JSON" value="false" />
+      <option name="OTHER" value="true" />
+      <option name="XML" value="false" />
+    </context>
+  </template>
+  <template name="exclean" value="using Entitas;&#10;&#10;public sealed class $system$ : IExecuteSystem, ICleanupSystem&#10;{&#10;  private readonly IGroup&lt;GameEntity&gt; $group$;&#10;  &#10;  public $system$(Contexts contexts)&#10;  {&#10;    $group$ = contexts.game.GetGroup($matcher$);&#10;  }&#10;&#10;  public void Execute()&#10;  {&#10;    foreach (var entity in $group$.GetEntities())&#10;    {&#10;      $logic$&#10;    }&#10;  }&#10;&#10;  public void Cleanup()&#10;  {&#10;    foreach (var entity in $group$.GetEntities())&#10;    {&#10;      &#10;    }&#10;  }&#10;}" description="IExecuteSystem + ICleanupSystem" toReformat="true" toShortenFQNames="true">
+    <variable name="system" expression="fileNameWithoutExtension()" defaultValue="" alwaysStopAt="true" />
+    <variable name="group" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="matcher" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="logic" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CUCUMBER_FEATURE_FILE" value="false" />
+      <option name="HTML" value="false" />
+      <option name="Handlebars" value="false" />
+      <option name="JSON" value="false" />
+      <option name="OTHER" value="true" />
+      <option name="XML" value="false" />
+    </context>
+  </template>
+  <template name="init" value="using Entitas;&#10;&#10;public sealed class $system$ : IInitializeSystem&#10;{&#10;  readonly $Context$ _context;&#10;  &#10;  public $system$(Contexts contexts)&#10;  {&#10;    _context = contexts.$context$;&#10;  }&#10;&#10;  public void Initialize()&#10;  {&#10;    $logic$&#10;  }&#10;}" description="IInitializeSystem" toReformat="true" toShortenFQNames="true">
+    <variable name="system" expression="fileNameWithoutExtension()" defaultValue="" alwaysStopAt="true" />
+    <variable name="Context" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="context" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="logic" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CUCUMBER_FEATURE_FILE" value="false" />
+      <option name="HTML" value="false" />
+      <option name="Handlebars" value="false" />
+      <option name="JSON" value="false" />
+      <option name="OTHER" value="true" />
+      <option name="XML" value="false" />
+    </context>
+  </template>
+  <template name="inex" value="using Entitas;&#10;&#10;public sealed class $system$ : IInitializeSystem, IExecuteSystem&#10;{&#10;  readonly $Context$ _context;&#10;  &#10;  public $system$(Contexts contexts)&#10;  {&#10;    _context = contexts.$context$;&#10;  }&#10;&#10;  public void Initialize()&#10;  {&#10;    $logic$&#10;  }&#10;  &#10;  public void Execute()&#10;  {&#10;   &#10;  }&#10;}" description="IInitializeSystem + IExecuteSystem" toReformat="true" toShortenFQNames="true">
+    <variable name="system" expression="fileNameWithoutExtension()" defaultValue="" alwaysStopAt="true" />
+    <variable name="Context" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="context" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="logic" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CUCUMBER_FEATURE_FILE" value="false" />
+      <option name="HTML" value="false" />
+      <option name="Handlebars" value="false" />
+      <option name="JSON" value="false" />
+      <option name="OTHER" value="true" />
+      <option name="XML" value="false" />
+    </context>
+  </template>
+  <template name="gcon" value="using Entitas;&#10;using UnityEngine;&#10;&#10;public class GameController : MonoBehaviour&#10;{&#10;  private Systems _systems;&#10;&#10;  private Contexts _contexts;&#10;&#10;  void Start()&#10;  {&#10;    _contexts = Contexts.sharedInstance;&#10;    _systems = CreateSystems(_contexts);&#10;    _systems.Initialize();&#10;  }&#10;&#10;  void Update()&#10;  {&#10;    _systems.Execute();&#10;    _systems.Cleanup();&#10;  }&#10;&#10;  private static Systems CreateSystems(Contexts contexts)&#10;  {&#10;    return new Feature(&quot;Systems&quot;)&#10;        .Add(new $feature$(contexts))&#10;      ;&#10;  }&#10;}" description="Game Controller" toReformat="true" toShortenFQNames="true">
+    <variable name="feature" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CUCUMBER_FEATURE_FILE" value="false" />
+      <option name="HTML" value="false" />
+      <option name="Handlebars" value="false" />
+      <option name="JSON" value="false" />
+      <option name="OTHER" value="true" />
+      <option name="XML" value="false" />
+    </context>
+  </template>
+  <template name="flag" value="using Entitas;&#10;&#10;[Game]&#10;public sealed class $component$ : IComponent&#10;{&#10;}&#10;" description="Flag Component" toReformat="false" toShortenFQNames="true">
+    <variable name="component" expression="fileNameWithoutExtension()" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CUCUMBER_FEATURE_FILE" value="false" />
+      <option name="HTML" value="false" />
+      <option name="Handlebars" value="false" />
+      <option name="JSON" value="false" />
+      <option name="OTHER" value="true" />
+      <option name="XML" value="false" />
+    </context>
+  </template>
+</templateSet>
