@@ -1,0 +1,7 @@
+<application>
+  <component name="ActionMacroManager">
+    <macro name="NewFile">
+      <action id="NewFile" />
+    </macro>
+  </component>
+</application>

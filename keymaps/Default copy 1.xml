@@ -1,0 +1,9 @@
+<keymap version="1" name="Default copy 1" parent="$default">
+  <action id="DomCollectionControl.Add">
+    <keyboard-shortcut first-keystroke="insert" />
+    <keyboard-shortcut first-keystroke="pause" />
+  </action>
+  <action id="Macro.NewFile">
+    <keyboard-shortcut first-keystroke="ctrl alt cancel" />
+  </action>
+</keymap>

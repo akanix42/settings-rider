@@ -140,4 +140,25 @@
       <option name="XML" value="false" />
     </context>
   </template>
+  <template name="spec" value="using NSpec;&#10;using NSpec.Assertions;&#10;&#10;class $class$ : nspec {&#10;  void when_$test$() {&#10;    it[&quot;$condition$&quot;] = () =&gt; { &#10;    $code$&#10;    };&#10;  }&#10;}" description="nspec" toReformat="true" toShortenFQNames="true">
+    <variable name="class" expression="fileNameWithoutExtension()" defaultValue="" alwaysStopAt="true" />
+    <variable name="test" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="condition" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="code" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CSS" value="false" />
+      <option name="CUCUMBER_FEATURE_FILE" value="false" />
+      <option name="CoffeeScript" value="false" />
+      <option name="HTML" value="false" />
+      <option name="Handlebars" value="false" />
+      <option name="JADE" value="false" />
+      <option name="JAVA_SCRIPT" value="false" />
+      <option name="JSON" value="false" />
+      <option name="OTHER" value="true" />
+      <option name="REQUEST" value="false" />
+      <option name="SQL" value="false" />
+      <option name="TypeScript" value="false" />
+      <option name="XML" value="false" />
+    </context>
+  </template>
 </templateSet>
